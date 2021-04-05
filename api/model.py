@@ -30,6 +30,9 @@ class Project(db.Model):
     project_description = db.Column(db.Text)
     project_create_date = db.Column(db.DateTime, default=db.func.current_timestamp())
 
+    user = db.relationship('User', backref='users')
+    project_type = db.relationship('Project_Type', backref='project_types')
+
     def __repr__(self):
         return f'<Project project_id={self.project_id} project_name={self.project_name}>'
 
@@ -45,6 +48,10 @@ class Entry(db.Model):
     entry_quantity = db.Column(db.Integer, nullable=False)
     entry_note = db.Column(db.Text)
     entry_datetime = db.Column(db.DateTime, default=db.func.current_timestamp())
+
+    project = db.relationship('Project', backref='projects')
+    entry_type = db.relationship('Entry_Type', backref='entry_types')
+    quantity_type = db.relationship('Quantity_Type', backref='quantity_types')
 
     def __repr__(self):
         return f'<Entry entry_id={self.entry_id} entry_quantity={self.entry_quantity}>'
