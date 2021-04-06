@@ -25,7 +25,6 @@ class Project(db.Model):
     project_id = db.Column(UUID(as_uuid=True), primary_key=True, default=uuid.uuid4)
     user_name = db.Column(db.String, db.ForeignKey('users.user_name'))
     project_type_id = db.Column(UUID(as_uuid=True), db.ForeignKey('project_types.project_type_id'))
-
     project_name = db.Column(db.String, nullable=False)
     project_description = db.Column(db.Text)
     project_create_date = db.Column(db.DateTime, default=db.func.current_timestamp())
@@ -42,7 +41,7 @@ class Entry(db.Model):
 
     entry_id = db.Column(UUID(as_uuid=True), primary_key=True, default=uuid.uuid4)
     project_id = db.Column(UUID(as_uuid=True), db.ForeignKey('projects.project_id'))
-    entry_type_id = db.Column(UUID(as_uuid=True), db.ForeignKey('entry_types.project_type_id'))
+    entry_type_id = db.Column(UUID(as_uuid=True), db.ForeignKey('entry_types.entry_type_id'))
     quantity_type_id = db.Column(UUID(as_uuid=True), db.ForeignKey('quantity_types.quantity_type_id'))
 
     entry_quantity = db.Column(db.Integer, nullable=False)
