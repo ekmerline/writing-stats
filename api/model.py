@@ -41,7 +41,7 @@ class Entry(db.Model):
 
     entry_id = db.Column(UUID(as_uuid=True), primary_key=True, default=uuid.uuid4)
     project_id = db.Column(UUID(as_uuid=True), db.ForeignKey('projects.project_id'))
-    entry_type_id = db.Column(UUID(as_uuid=True), db.ForeignKey('entry_types.project_type_id'))
+    entry_type_id = db.Column(UUID(as_uuid=True), db.ForeignKey('entry_types.entry_type_id'))
     quantity_type_id = db.Column(UUID(as_uuid=True), db.ForeignKey('quantity_types.quantity_type_id'))
 
     entry_quantity = db.Column(db.Integer, nullable=False)
