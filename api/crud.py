@@ -12,8 +12,8 @@ def create_user(user_name, email, password):
 def get_users():
     return User.query.all()
 
-def get_user_by_name(user_name):
-    return User.query.get(user_name)
+def get_user_by_id(user_id):
+    return User.query.get(user_id)
 
 def create_project(user, project_type, project_name, project_description, project_create_date):
 
@@ -33,6 +33,9 @@ def get_projects():
 
 def get_project_by_id(project_id):
     return Project.query.get(project_id)
+
+def get_projects_by_user_id(user_id):
+    return Project.query.get(user_id)
 
 def create_entry(project, entry_type, quantity_type, entry_quantity, entry_note, entry_datetime):
 
