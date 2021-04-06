@@ -1,4 +1,3 @@
-from datetime import datetime
 from sqlalchemy.dialects.postgresql import UUID
 from flask_sqlalchemy import SQLAlchemy
 import uuid
@@ -10,7 +9,8 @@ class User(db.Model):
 
     __tablename__ = 'users'
 
-    user_name = db.Column(db.String, primary_key=True)
+    user_id = db.Column(UUID(as_uuid=True), primary_key=True, default=uuid.uuid4)
+    user_name = db.Column(db.String, unique=True, nullable=False)
     email = db.Column(db.String, unique=True, nullable=False)
     password = db.Column(db.String, nullable=False)
 
@@ -23,7 +23,7 @@ class Project(db.Model):
     __tablename__ = 'projects'
 
     project_id = db.Column(UUID(as_uuid=True), primary_key=True, default=uuid.uuid4)
-    user_name = db.Column(db.String, db.ForeignKey('users.user_name'))
+    user_id = db.Column(UUID(as_uuid=True), db.ForeignKey('users.user_id'))
     project_type_id = db.Column(UUID(as_uuid=True), db.ForeignKey('project_types.project_type_id'))
     project_name = db.Column(db.String, nullable=False)
     project_description = db.Column(db.Text)
@@ -34,6 +34,16 @@ class Project(db.Model):
 
     def __repr__(self):
         return f'<Project project_id={self.project_id} project_name={self.project_name}>'
+
+    def to_dict(self):
+        return {
+            'project_id': self.project_id,
+            'user_id': self.user_id,
+            'project_type_id': self.project_type_id,
+            'project_name': self.project_name,
+            'project_description': self.project_description,
+            'project_create_date': self.project_create_date
+        }
 
 class Entry(db.Model):
 
