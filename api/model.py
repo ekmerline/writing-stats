@@ -25,7 +25,6 @@ class Project(db.Model):
     project_id = db.Column(UUID(as_uuid=True), primary_key=True, default=uuid.uuid4)
     user_name = db.Column(db.String, db.ForeignKey('users.user_name'))
     project_type_id = db.Column(UUID(as_uuid=True), db.ForeignKey('project_types.project_type_id'))
-
     project_name = db.Column(db.String, nullable=False)
     project_description = db.Column(db.Text)
     project_create_date = db.Column(db.DateTime, default=db.func.current_timestamp())
